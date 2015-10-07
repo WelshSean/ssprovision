@@ -1,0 +1,29 @@
+#body common control
+#{
+#	bundlesequence => { "edit_motd" };
+#}
+
+bundle agent edit_motd
+{
+  meta:
+      "tags" slist => { "autorun" };
+
+  vars:
+	"motd" string => "/etc/motd";
+
+  files:
+        "$(motd)"
+          create => "true",
+          edit_line => addmessage;
+
+  reports:
+        cfengine::
+                "MOTD bundle has run";
+
+}
+
+bundle edit_line addmessage
+{
+  insert_lines:
+       "This is  web server under CFEngine control";
+}
