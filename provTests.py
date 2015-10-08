@@ -2,8 +2,18 @@
 
 import unittest
 import subprocess 
+import time
 
-class LoggyTests(unittest.TestCase):
+class provTests(unittest.TestCase):
+
+
+    @classmethod
+    def setUpClass(provTests):
+        rc = subprocess.call([ '/usr/local/bin/vagrant', 'destroy', '-f' ])
+        rc = subprocess.call([ '/usr/local/bin/vagrant', 'up' ])
+        for i in range (1,10):
+            print i,"!!!! Note sleeping for 1 minutes to let CFE do its stuff"
+	    time.sleep(60)
 
     def testApacheInstalled(self):
 	rc = subprocess.call([ '/usr/local/bin/vagrant', 'ssh', 'web', '-c', 'rpm -q httpd' ]) 
