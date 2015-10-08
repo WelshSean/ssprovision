@@ -14,7 +14,33 @@ methods:
        "webserver motd"        usebundle =>  edit_motd;
        "Install Apache"	       usebundle =>  install_apache;
        "start Apache"	       usebundle =>  start_apache;
+       "get html"	       usebundle =>  pull_html;
 }
+
+
+
+bundle agent pull_html
+{
+classes:
+"have_html" expression => fileexists("/var/www/html/index.html");
+
+
+commands:
+   !have_html::
+     "/usr/bin/curl https://raw.githubusercontent.com/WelshSean/ssprovision/master/index.html >/var/www/html/index.html"
+	contain => shell_command;
+
+files:
+   have_html::
+        "/var/www/html/index.html"
+             perms => mog("777", "root", "root");
+}
+
+
+body contain shell_command
+    {
+        useshell    => "useshell";
+    }
 
 
 
