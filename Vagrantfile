@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
    web.vm.provision "cfengine" do |cf|
      cf.am_policy_hub = false
      cf.policy_server_address = "192.168.10.2"
-     cf.classes = [ "webhost" ]
+     cf.classes = [ "webhost" ]    # This is documented on the Vagrant web page and should set a class but I cant get it to work 
    end
  end
 

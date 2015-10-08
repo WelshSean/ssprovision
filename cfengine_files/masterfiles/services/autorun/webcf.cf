@@ -3,10 +3,20 @@
 #	bundlesequence => { "edit_motd" };
 #}
 
+bundle agent web
+{
+meta:
+      "tags" slist => { "autorun" };
+
+methods:
+    web::
+       "webserver motd"        usebundle =>  edit_motd;
+}
+
 bundle agent edit_motd
 {
-  meta:
-      "tags" slist => { "autorun" };
+#  meta:
+#      "tags" slist => { "autorun" };
 
   vars:
 	"motd" string => "/etc/motd";
