@@ -47,7 +47,7 @@ body contain shell_command
 bundle agent start_apache
 {
 processes:
-   "^/usr/sbin/httpd" restart_class => "start_httpd";
+   "httpd" restart_class => "start_httpd";
 
 commands:
    start_httpd::
