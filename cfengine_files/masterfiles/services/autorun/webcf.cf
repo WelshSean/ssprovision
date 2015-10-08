@@ -8,15 +8,40 @@ bundle agent web
 meta:
       "tags" slist => { "autorun" };
 
+
 methods:
     web::
        "webserver motd"        usebundle =>  edit_motd;
+       "Install Apache"	       usebundle =>  install_apache;
+       "start Apache"	       usebundle =>  start_apache;
 }
+
+
+
+bundle agent start_apache
+{
+processes:
+   "^httpd" restart_class => "start_httpd";
+
+commands:
+   start_httpd::
+        "/sbin/service httpd start";
+   httpd_installed::
+        "/sbin/chkconfig httpd on";
+}
+
+bundle agent install_apache
+{
+packages:
+   "httpd"
+	policy => "present",
+	package_module => yum,
+        classes => if_repaired("httpd_installed");
+}
+
 
 bundle agent edit_motd
 {
-#  meta:
-#      "tags" slist => { "autorun" };
 
   vars:
 	"motd" string => "/etc/motd";
