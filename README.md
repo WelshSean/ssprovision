@@ -23,3 +23,10 @@ Running "vagrant up" in this directory will create two virtual machines:
 * localhost:8080 is forwarded to cfhub:80
 * localhost:8081 is forwarded to web:80
 * A private network is setup between the hosts on 192.168.2.0/24
+
+The webserver is set up as follows
+
+* Apache is installed
+* The Apache service is enabled
+* Apache is started
+* A minimal "hello world" index.html is cloned from GitHub
